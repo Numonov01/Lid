@@ -197,7 +197,7 @@
   // Forma va API bitta domenda (shu Vercel loyihasi), shuning uchun
   // nisbiy yo'l ishlatiladi — CORS sozlash shart emas.
   const PROXY_URL = '/api/lead';
-  const API_KEY = 'bmiFVhtk';
+  const API_KEY = '8235421784599192';
   const STREAM = 'bmiFVhtk';
   const OFFER_ID = 278;
 
@@ -274,7 +274,12 @@
       let data;
       try { data = JSON.parse(text); } catch(e) { data = { raw: text }; }
 
-      if (res.ok){
+      // Xavi.uz muvaffaqiyatda {ok:true} yoki {success:true} qaytaradi,
+      // xatoda {success:false, message:"..."} qaytaradi — HTTP status 200
+      // bo'lsa ham xato bo'lishi mumkin, shuning uchun ikkalasini ham tekshiramiz.
+      const isSuccess = res.ok && data && data.success !== false && data.ok !== false;
+
+      if (isSuccess){
         showMsg('success', 'Muvaffaqiyatli yuborildi! ✅');
         history.unshift({ name, phone, ok: true, time: Date.now() });
         form.reset();
