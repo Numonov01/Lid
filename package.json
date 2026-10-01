@@ -1,0 +1,6 @@
+{
+  "name": "lead-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Xavi.uz CRM uchun CORS proxy (Vercel serverless function)"
+}
