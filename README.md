@@ -42,3 +42,27 @@ app.post('/api/lead', async (req, res) => {
   // yuqoridagi handler mantig'i
 });
 ```
+
+## Loyiha tuzilmasi
+
+```
+index.html                  — lid qo'shish sahifasi (faqat HTML belgilash)
+history.html                — barcha yuborilganlar tarixi sahifasi
+api/lead.js                 — Vercel serverless proxy
+src/
+  main.js                   — index.html kirish nuqtasi, komponentlarni bog'laydi
+  history.js                — history.html kirish nuqtasi
+  state.js                  — tanlangan platforma/akkaunt/mahsulot holati
+  config/platforms.js       — platformalar, akkauntlar, mahsulotlar ro'yxati
+  lib/api.js                — lidni /api/lead ga yuborish
+  lib/storage.js            — xavfsiz localStorage o'ramlari
+  components/               — UI komponentlar (tab, chip, select, forma, tarix, xabar)
+  styles/                   — CSS (mavzu, asosiy, komponentlar bo'yicha)
+```
+
+Yangi mahsulot yoki akkaunt qo'shish uchun faqat `src/config/platforms.js`
+ni tahrirlang.
+
+Kod ES modullarda yozilgan, shuning uchun `index.html` ni to'g'ridan-to'g'ri
+(`file://`) ochib bo'lmaydi — lokal server orqali oching, masalan
+`vercel dev` yoki `npx http-server`.

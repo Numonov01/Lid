@@ -1,0 +1,68 @@
+/* Forma maydonlari, tugma va xabar qutisi */
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+input,
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 16px;
+  margin-bottom: 16px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+input {
+  background: transparent;
+}
+select {
+  background: var(--card);
+  cursor: pointer;
+}
+input:focus,
+select:focus {
+  border-color: var(--accent);
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+button[type="submit"]:hover {
+  background: var(--accent-dark);
+}
+button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.msg {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  display: none;
+}
+.msg.success {
+  display: block;
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--success);
+}
+.msg.error {
+  display: block;
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--error);
+}

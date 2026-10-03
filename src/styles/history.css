@@ -1,0 +1,82 @@
+/* "So'nggi yuborilganlar" ro'yxati */
+.log {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.log-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.log-head a,
+.back-link {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.log-head a:hover,
+.back-link:hover {
+  text-decoration: underline;
+}
+.log-head a[hidden] {
+  display: none;
+}
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.log-item .time {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.log h2 {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.log-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.log-item:last-child {
+  border-bottom: none;
+}
+.log-item .name {
+  font-weight: 600;
+}
+.log-item .phone {
+  color: var(--muted);
+  font-size: 13px;
+}
+.log-item .status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.status.ok {
+  background: rgba(22, 163, 74, 0.12);
+  color: var(--success);
+}
+.status.fail {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--error);
+}
+.empty {
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  padding: 12px 0;
+}
