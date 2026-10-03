@@ -1,463 +1,585 @@
 <!doctype html>
 <html lang="uz">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lid qo'shish — 13 xil Premium Atir to'plami</title>
-    <style>
-      :root {
-        --bg: #f4f5f7;
-        --card: #ffffff;
-        --text: #1a1a1a;
-        --muted: #6b7280;
-        --accent: #2563eb;
-        --accent-dark: #1d4ed8;
-        --success: #16a34a;
-        --error: #dc2626;
-        --border: #e5e7eb;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root:not([data-theme="light"]) {
-          --bg: #0f1115;
-          --card: #1a1d23;
-          --text: #f3f4f6;
-          --muted: #9ca3af;
-          --border: #2a2e37;
-        }
-      }
-      :root[data-theme="dark"] {
-        --bg: #0f1115;
-        --card: #1a1d23;
-        --text: #f3f4f6;
-        --muted: #9ca3af;
-        --border: #2a2e37;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        padding: 16px;
-      }
-      .card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 28px 24px;
-        max-width: 420px;
-        width: 100%;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-      }
-      .product-tag {
-        display: inline-block;
-        background: #fef3c7;
-        color: #92400e;
-        font-size: 12px;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: 999px;
-        margin-bottom: 12px;
-      }
-      h1 {
-        font-size: 20px;
-        margin: 0 0 4px;
-      }
-      .subtitle {
-        color: var(--muted);
-        font-size: 14px;
-        margin: 0 0 24px;
-      }
-      label {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 6px;
-      }
-      input {
-        width: 100%;
-        padding: 12px 14px;
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        background: transparent;
-        color: var(--text);
-        font-size: 16px;
-        margin-bottom: 16px;
-        outline: none;
-        transition: border-color 0.15s;
-      }
-      input:focus {
-        border-color: var(--accent);
-      }
-      button {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 10px;
-        background: var(--accent);
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.15s;
-      }
-      button:hover {
-        background: var(--accent-dark);
-      }
-      button:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-      .msg {
-        margin-top: 16px;
-        padding: 12px 14px;
-        border-radius: 10px;
-        font-size: 14px;
-        display: none;
-      }
-      .msg.success {
-        display: block;
-        background: rgba(22, 163, 74, 0.1);
-        color: var(--success);
-      }
-      .msg.error {
-        display: block;
-        background: rgba(220, 38, 38, 0.1);
-        color: var(--error);
-      }
-      .log {
-        margin-top: 20px;
-        border-top: 1px solid var(--border);
-        padding-top: 16px;
-      }
-      .log h2 {
-        font-size: 13px;
-        color: var(--muted);
-        margin: 0 0 10px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-      }
-      .log-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 0;
-        border-bottom: 1px solid var(--border);
-        font-size: 14px;
-      }
-      .log-item:last-child {
-        border-bottom: none;
-      }
-      .log-item .name {
-        font-weight: 600;
-      }
-      .log-item .phone {
-        color: var(--muted);
-        font-size: 13px;
-      }
-      .log-item .status {
-        font-size: 12px;
-        font-weight: 600;
-        padding: 2px 8px;
-        border-radius: 999px;
-      }
-      .status.ok {
-        background: rgba(22, 163, 74, 0.12);
-        color: var(--success);
-      }
-      .status.fail {
-        background: rgba(220, 38, 38, 0.12);
-        color: var(--error);
-      }
-      .empty {
-        color: var(--muted);
-        font-size: 13px;
-        text-align: center;
-        padding: 12px 0;
-      }
-      .wrap {
-        position: relative;
-        max-width: 420px;
-        width: 100%;
-      }
-      select {
-        width: 100%;
-        padding: 12px 14px;
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        background: var(--card);
-        color: var(--text);
-        font-size: 16px;
-        margin-bottom: 16px;
-        outline: none;
-        cursor: pointer;
-        transition: border-color 0.15s;
-      }
-      select:focus {
-        border-color: var(--accent);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <div class="card">
-        <span class="product-tag" id="productTag"
-          >13 xil Premium Atir to'plami</span
-        >
-        <h1>Yangi lid qo'shish</h1>
-        <p class="subtitle">
-          Instagram/Facebook DM orqali kelgan mijoz ma'lumotini kiriting
-        </p>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lid qo'shish — CRM</title>
+<style>
+  :root{
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --text:#1a1a1a;
+    --muted:#6b7280;
+    --accent:#2563eb;
+    --accent-dark:#1d4ed8;
+    --success:#16a34a;
+    --error:#dc2626;
+    --border:#e5e7eb;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1115;
+      --card:#1a1d23;
+      --text:#f3f4f6;
+      --muted:#9ca3af;
+      --border:#2a2e37;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1115;
+    --card:#1a1d23;
+    --text:#f3f4f6;
+    --muted:#9ca3af;
+    --border:#2a2e37;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:16px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:28px 24px;
+    max-width:420px;
+    width:100%;
+    box-shadow:0 4px 24px rgba(0,0,0,0.06);
+  }
+  .tabs{
+    display:flex;
+    gap:6px;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:4px;
+    margin-bottom:10px;
+  }
+  .tab{
+    flex:1;
+    text-align:center;
+    padding:9px 8px;
+    border-radius:9px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--muted);
+    cursor:pointer;
+    border:none;
+    background:transparent;
+    transition:background .15s, color .15s;
+  }
+  .tab.active{
+    background:var(--accent);
+    color:#fff;
+  }
+  .accounts{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:18px;
+  }
+  .accounts:empty{ margin-bottom:0; }
+  .account-chip{
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+    color:var(--muted);
+    cursor:pointer;
+    border:1px solid var(--border);
+    background:transparent;
+    transition:background .15s, color .15s, border-color .15s;
+  }
+  .account-chip.active{
+    background:rgba(37,99,235,0.12);
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+  .product-tag{
+    display:inline-block;
+    background:#fef3c7;
+    color:#92400e;
+    font-size:12px;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+    margin-bottom:12px;
+  }
+  h1{
+    font-size:20px;
+    margin:0 0 4px;
+  }
+  .subtitle{
+    color:var(--muted);
+    font-size:14px;
+    margin:0 0 24px;
+  }
+  label{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:transparent;
+    color:var(--text);
+    font-size:16px;
+    margin-bottom:16px;
+    outline:none;
+    transition:border-color .15s;
+  }
+  input:focus{
+    border-color:var(--accent);
+  }
+  button[type="submit"]{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:var(--accent);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .15s;
+  }
+  button[type="submit"]:hover{ background:var(--accent-dark); }
+  button[type="submit"]:disabled{ opacity:0.6; cursor:not-allowed; }
+  .msg{
+    margin-top:16px;
+    padding:12px 14px;
+    border-radius:10px;
+    font-size:14px;
+    display:none;
+  }
+  .msg.success{
+    display:block;
+    background:rgba(22,163,74,0.1);
+    color:var(--success);
+  }
+  .msg.error{
+    display:block;
+    background:rgba(220,38,38,0.1);
+    color:var(--error);
+  }
+  .log{
+    margin-top:20px;
+    border-top:1px solid var(--border);
+    padding-top:16px;
+  }
+  .log h2{
+    font-size:13px;
+    color:var(--muted);
+    margin:0 0 10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+  }
+  .log-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 0;
+    border-bottom:1px solid var(--border);
+    font-size:14px;
+  }
+  .log-item:last-child{ border-bottom:none; }
+  .log-item .name{ font-weight:600; }
+  .log-item .phone{ color:var(--muted); font-size:13px; }
+  .log-item .status{
+    font-size:12px;
+    font-weight:600;
+    padding:2px 8px;
+    border-radius:999px;
+  }
+  .status.ok{ background:rgba(22,163,74,0.12); color:var(--success); }
+  .status.fail{ background:rgba(220,38,38,0.12); color:var(--error); }
+  .empty{
+    color:var(--muted);
+    font-size:13px;
+    text-align:center;
+    padding:12px 0;
+  }
+  .wrap{ position:relative; max-width:420px; width:100%; }
+  select{
+    width:100%;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-size:16px;
+    margin-bottom:16px;
+    outline:none;
+    cursor:pointer;
+    transition:border-color .15s;
+  }
+  select:focus{ border-color:var(--accent); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+  <div class="card">
+    <div class="tabs" id="platformTabs"></div>
+    <div class="accounts" id="accountChips"></div>
 
-        <form id="leadForm">
-          <label for="productSelect">Mahsulot</label>
-          <select id="productSelect" required></select>
+    <span class="product-tag" id="productTag">—</span>
+    <h1>Yangi lid qo'shish</h1>
+    <p class="subtitle">Instagram/Facebook DM orqali kelgan mijoz ma'lumotini kiriting</p>
 
-          <label for="name">Ism</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Masalan: Dilnoza"
-            required
-            autocomplete="off"
-          />
+    <form id="leadForm">
+      <label for="productSelect">Mahsulot</label>
+      <select id="productSelect" required></select>
 
-          <label for="phone">Telefon raqami</label>
-          <input
-            type="tel"
-            id="phone"
-            placeholder="+998901234567"
-            required
-            autocomplete="off"
-          />
+      <label for="name">Ism</label>
+      <input type="text" id="name" placeholder="Masalan: Dilnoza" required autocomplete="off">
 
-          <button type="submit" id="submitBtn">Yuborish</button>
-        </form>
+      <label for="phone">Telefon raqami</label>
+      <input type="tel" id="phone" placeholder="+998901234567" required autocomplete="off">
 
-        <div class="msg" id="msgBox"></div>
+      <button type="submit" id="submitBtn">Yuborish</button>
+    </form>
 
-        <div class="log">
-          <h2>So'nggi yuborilganlar</h2>
-          <div id="logList">
-            <div class="empty">Hali hech narsa yuborilmagan</div>
-          </div>
-        </div>
+    <div class="msg" id="msgBox"></div>
+
+    <div class="log">
+      <h2>So'nggi yuborilganlar</h2>
+      <div id="logList">
+        <div class="empty">Hali hech narsa yuborilmagan</div>
       </div>
     </div>
+  </div>
+  </div>
 
-    <script>
-      // Forma va API bitta domenda (shu Vercel loyihasi), shuning uchun
-      // nisbiy yo'l ishlatiladi — CORS sozlash shart emas.
-      const PROXY_URL = "/api/lead";
-      const API_KEY = "8235421784599192";
+<script>
+  // Forma va API bitta domenda (shu Vercel loyihasi), shuning uchun
+  // nisbiy yo'l ishlatiladi — CORS sozlash shart emas.
+  const PROXY_URL = '/api/lead';
 
-      // Barcha faol oqimlar: nom, oqim kaliti, offer_id.
-      // Yangi mahsulot qo'shish uchun shu ro'yxatga bitta qator qo'shing.
-      const PRODUCTS = [
+  // Platformalar (CRM'lar). Har bir platformada bir nechta akkaunt bo'lishi
+  // mumkin (masalan bir nechta API key). Yangi akkaunt qo'shish uchun
+  // tegishli platformaning `accounts` ro'yxatiga bitta obyekt qo'shing.
+  const PLATFORM_LABELS = { fayzli: 'Fayzlibazar', xavi: 'Xavi.uz' };
+
+  const PLATFORMS = {
+    fayzli: {
+      accounts: [
         {
-          label: "13 xil premium atir toplami",
-          stream: "bmiFVhtk",
-          offer: 278,
+          id: 'tokhir',
+          label: 'Tokhir',
+          api_key: '9880811763797215',
+          products: [
+            { label: 'Zepter Nabor 3 tasi 1 da',                     stream: 'azTYn17b', offer: 261 },
+            { label: 'PINK PASSION NABORI',                           stream: 'SbRagE16', offer: 151 },
+            { label: 'ZERO FIT — Detox kukuni (100 gr)',               stream: 'GmTl7RGt', offer: 222 },
+            { label: 'Sidr Kukuni',                                    stream: 'AOZGdVDr', offer: 273 },
+            { label: 'O\'tqop (dimlanish) uchun zbor',                  stream: 'CIURG2cE', offer: 265 },
+            { label: 'Louis Vuitton (LV) atirlari 1+1 45ml',           stream: 'xufCmVdl', offer: 198 },
+            { label: 'ZERO FIT — Detox kukuni (new)',                  stream: '3Hr0sHKr', offer: 222 },
+            { label: 'Daloilul Hayrot',                                stream: 'XX18XYxI', offer: 251 },
+            { label: 'Louis Vuitton (LV) atirlari 1+1 45ml (3)',       stream: 'Ux04M3SX', offer: 198 },
+            { label: 'Feramon 1+1',                                    stream: 'pqnHOnFk', offer: 282 },
+            { label: 'Louis Vuitton (LV) atirlari 1+1 45ml (4)',       stream: 'aWnLHTAm', offer: 198 },
+            { label: 'Tamaki Tashlashga Yordam Beruvchi Kukun',        stream: 'I0Ljgx7P', offer: 288 },
+            { label: 'Katushka Aparat',                                stream: 'rphyb19o', offer: 302 },
+            { label: 'SCORPION BAUME DE NERFS — 100 GR',               stream: '3ASBfwIF', offer: 295 },
+          ],
         },
-        { label: "Feramon 21+ (30ML)", stream: "FJ0lBOwk", offer: 195 },
-        { label: "Ozdiruvchi choy", stream: "oFQHr6By", offer: 255 },
-        { label: "Guruch Nabor", stream: "3V4cqpBv", offer: 105 },
         {
-          label: "Hujjat va kitoblar uchun papka",
-          stream: "hhlxfARN",
-          offer: 259,
+          id: 'zukhra',
+          label: 'Zukhra',
+          api_key: '5741531778327563',
+          products: [
+            { label: 'Keng rizq yuli',                              stream: 'ovLGxEP7', offer: 163 },
+            { label: 'Feramon (Feromon)',                           stream: 'ipRWXTV1', offer: 169 },
+            { label: 'Ashaab 100 mlg Dubai',                        stream: 'VEJh9lKP', offer: 197 },
+            { label: 'Simfoniy — Louis Vuitton unisex 1+1 45ml',    stream: 'bTvjdhKx', offer: 199 },
+            { label: 'Louis Vuitton (LV) atirlari 1+1 45ml',        stream: 'dDGDj5XA', offer: 198 },
+            { label: 'Xashoratlar uchun raketka',                   stream: 'oO90hdxw', offer: 184 },
+            { label: 'AVTO HUD Speedometer',                        stream: 'dfdIMFH5', offer: 179 },
+            { label: 'Salitsil (salyuni) kislota',                  stream: 'BK48hHDD', offer: 201 },
+            { label: 'Auonam — soch parvarishi uchun',               stream: 'wZp5z1a7', offer: 167 },
+            { label: 'Killer',                                      stream: '3evCM615', offer: 200 },
+            { label: 'Quvvat asal',                                  stream: 'r7KT0Q5M', offer: 133 },
+            { label: 'Fursan Atir 100 mlg Original Dubai',           stream: 'GMxsGUbf', offer: 208 },
+            { label: 'Mini Blendr',                                  stream: 'To2zyPgM', offer: 205 },
+            { label: 'Feramon (1+1) Ayollar va Erkaklar',            stream: 'jRqD4lar', offer: 203 },
+            { label: 'Peacholic White Body Tone Up Serum',           stream: 'NsqltJ2W', offer: 207 },
+            { label: 'Polycarbon Soat',                              stream: 'ElKBmXM9', offer: 210 },
+            { label: 'Gerb Soat',                                    stream: '5CovW8FU', offer: 226 },
+            { label: 'Hydrating Perfect Cream',                      stream: '9oQ1Dqpd', offer: 194 },
+            { label: 'Avtomobil uchun katta asvijitel',               stream: 'no0pxJcz', offer: 181 },
+            { label: 'Mukoshafatul qulub — Qalblar kashfiyoti',      stream: 'ydpyK90f', offer: 15  },
+            { label: 'Qur\'oni Karim manolarini tarjimasi',           stream: 'r3j2ZuqM', offer: 252 },
+            { label: 'Al-Quran',                                     stream: 'U4ZaKfLK', offer: 253 },
+            { label: 'TOYTO-L3 Starfighter Dron',                    stream: '5gQqfSDe', offer: 216 },
+            { label: 'Dyson Fen',                                    stream: 'Ami2Q8sM', offer: 42  },
+            { label: 'Sidr Kukuni 79',                                stream: 'qvJizBEt', offer: 278 },
+            { label: 'Tamaki Tashlashga Yordam Beruvchi Kukun',       stream: '8iklqQDR', offer: 288 },
+            { label: 'HB-P18 Fonar',                                  stream: 'pSVMNwCq', offer: 4   },
+            { label: 'Wi-Fi Simsiz mini-kamera',                      stream: 'DyBaauPK', offer: 150 },
+            { label: 'Nafis taqinchoqlar to\'plami',                  stream: 'uvaihFZU', offer: 233 },
+            { label: 'Magic Sand — bolajonlar uchun',                 stream: 'c0pexHPD', offer: 312 },
+            { label: 'Innova kreatin shampun',                        stream: 'Nxpz1egn', offer: 317 },
+          ],
         },
-        { label: "Skeleton soat", stream: "UNStErBm", offer: 262 },
-        { label: "Deyl Karnegi 4 ta qism", stream: "4EJKKR5y", offer: 60 },
-        { label: "Harvard Metodi 129", stream: "0C6l1rLN", offer: 285 },
-        { label: "Harvard Metodi 109", stream: "lKzRzx17", offer: 289 },
-      ];
+      ],
+    },
+    xavi: {
+      accounts: [
+        {
+          id: 'tokhir',
+          label: 'Tokhir',
+          api_key: '8235421784599192',
+          products: [
+            { label: '13 xil premium atir toplami',               stream: 'bmiFVhtk', offer: 278 },
+            { label: 'Feramon 21+ (30ML)',                          stream: 'FJ0lBOwk', offer: 195 },
+            { label: 'Tuyaqush Yog\'i',                              stream: 'DE02SMXx', offer: 201 },
+            { label: 'Zero Fit 100 GR',                              stream: 'WfuCP8Uw', offer: 215 },
+            { label: 'Snayper (erkaklar uchun)',                     stream: 'Cjk4DzPp', offer: 222 },
+            { label: 'Sauvage atirlari — 2 tasi birda 45ML',         stream: 'gmDpiZLF', offer: 235 },
+            { label: 'Sauvage atirlari (new)',                       stream: 'eBgVzzYx', offer: 235 },
+            { label: 'Tamaki tashlashga yordam beruvchi kukun',      stream: 'yumftflv', offer: 236 },
+            { label: 'Hula Hoop',                                    stream: 'sBY3FcZE', offer: 239 },
+            { label: 'Saheb Eau De Parfum (oddiy)',                  stream: '0Ds9pL2B', offer: 242 },
+            { label: 'Ozdiruvchi choy',                              stream: 'oFQHr6By', offer: 255 },
+            { label: 'Tribunis — tabiiy energiya ichimligi',         stream: '3X8HxiPK', offer: 252 },
+            { label: 'Guruch Nabor',                                 stream: '3V4cqpBv', offer: 105 },
+            { label: 'Hujjat va kitoblar uchun papka',               stream: 'hhlxfARN', offer: 259 },
+            { label: 'Skeleton soat',                                stream: 'UNStErBm', offer: 262 },
+            { label: 'Belkis Prenses Hamam Otu',                     stream: '3up6qCRQ', offer: 263 },
+            { label: 'Sidr sovun',                                   stream: '3qftdSe1', offer: 264 },
+            { label: 'Original Pheromone atiri 30ML',                stream: 'DzZA2abn', offer: 272 },
+            { label: 'Moviy toplam ayollar uchun',                   stream: 'Y5FUKutq', offer: 92  },
+            { label: 'Deyl Karnegi 4 ta qism',                       stream: '4EJKKR5y', offer: 60  },
+            { label: 'Harvard Metodi',                                stream: '0C6l1rLN', offer: 285 },
+          ],
+        },
+      ],
+    },
+  };
 
-      const form = document.getElementById("leadForm");
-      const msgBox = document.getElementById("msgBox");
-      const submitBtn = document.getElementById("submitBtn");
-      const logList = document.getElementById("logList");
-      const productSelect = document.getElementById("productSelect");
-      const productTag = document.getElementById("productTag");
+  const platformTabs = document.getElementById('platformTabs');
+  const accountChips = document.getElementById('accountChips');
+  const form = document.getElementById('leadForm');
+  const msgBox = document.getElementById('msgBox');
+  const submitBtn = document.getElementById('submitBtn');
+  const logList = document.getElementById('logList');
+  const productSelect = document.getElementById('productSelect');
+  const productTag = document.getElementById('productTag');
 
-      // Select'ni mahsulotlar bilan to'ldirish
-      PRODUCTS.forEach((p, i) => {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = p.label;
-        productSelect.appendChild(opt);
+  let activePlatform = 'xavi';
+  try {
+    const saved = localStorage.getItem('active_platform');
+    if (saved && PLATFORMS[saved]) activePlatform = saved;
+  } catch(e) {}
+
+  // Platforma tab'larini chizish
+  Object.keys(PLATFORMS).forEach(key => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tab' + (key === activePlatform ? ' active' : '');
+    btn.textContent = PLATFORM_LABELS[key] || key;
+    btn.dataset.platform = key;
+    btn.addEventListener('click', () => switchPlatform(key));
+    platformTabs.appendChild(btn);
+  });
+
+  function getActiveAccountId(platformKey){
+    try {
+      const saved = localStorage.getItem('active_account_' + platformKey);
+      if (saved && PLATFORMS[platformKey].accounts.some(a => a.id === saved)) return saved;
+    } catch(e) {}
+    return PLATFORMS[platformKey].accounts[0].id;
+  }
+
+  function switchPlatform(key){
+    activePlatform = key;
+    try { localStorage.setItem('active_platform', key); } catch(e) {}
+
+    [...platformTabs.children].forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.platform === key);
+    });
+
+    switchAccount(getActiveAccountId(key));
+  }
+
+  function getAccount(){
+    const platform = PLATFORMS[activePlatform];
+    const accountId = getActiveAccountId(activePlatform);
+    return platform.accounts.find(a => a.id === accountId) || platform.accounts[0];
+  }
+
+  function switchAccount(accountId){
+    try { localStorage.setItem('active_account_' + activePlatform, accountId); } catch(e) {}
+
+    const accounts = PLATFORMS[activePlatform].accounts;
+
+    // Akkaunt chiplarini chizish — faqat bir nechta akkaunt bo'lsa ko'rsatiladi
+    accountChips.innerHTML = '';
+    if (accounts.length > 1){
+      accounts.forEach(acc => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'account-chip' + (acc.id === accountId ? ' active' : '');
+        chip.textContent = acc.label;
+        chip.dataset.account = acc.id;
+        chip.addEventListener('click', () => switchAccount(acc.id));
+        accountChips.appendChild(chip);
       });
+    }
 
-      // Oxirgi tanlangan mahsulotni eslab qolish (qulaylik uchun)
-      try {
-        const lastIndex = localStorage.getItem("last_product_index");
-        if (lastIndex !== null && PRODUCTS[lastIndex])
-          productSelect.value = lastIndex;
-      } catch (e) {}
+    const account = accounts.find(a => a.id === accountId) || accounts[0];
+    const products = account.products;
 
-      function updateProductTag() {
-        const p = PRODUCTS[productSelect.value];
-        if (p) productTag.textContent = p.label;
-      }
-      updateProductTag();
+    productSelect.innerHTML = '';
+    products.forEach((p, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = p.label;
+      productSelect.appendChild(opt);
+    });
 
-      productSelect.addEventListener("change", function () {
-        updateProductTag();
-        try {
-          localStorage.setItem("last_product_index", productSelect.value);
-        } catch (e) {}
-      });
+    try {
+      const lastIndex = localStorage.getItem('last_product_index_' + activePlatform + '_' + accountId);
+      if (lastIndex !== null && products[lastIndex]) productSelect.value = lastIndex;
+    } catch(e) {}
 
-      let history = [];
-      try {
-        const saved = localStorage.getItem("lead_history");
-        if (saved) history = JSON.parse(saved);
-      } catch (e) {}
+    updateProductTag();
+  }
 
-      function renderLog() {
-        if (history.length === 0) {
-          logList.innerHTML =
-            '<div class="empty">Hali hech narsa yuborilmagan</div>';
-          return;
-        }
-        logList.innerHTML = history
-          .slice(0, 10)
-          .map(
-            (item) => `
+  function updateProductTag(){
+    const account = getAccount();
+    const p = account.products[productSelect.value];
+    if (p) productTag.textContent = p.label + ' · ' + (PLATFORM_LABELS[activePlatform] || activePlatform) + ' (' + account.label + ')';
+  }
+
+  productSelect.addEventListener('change', function(){
+    updateProductTag();
+    try { localStorage.setItem('last_product_index_' + activePlatform + '_' + getAccount().id, productSelect.value); } catch(e) {}
+  });
+
+  // Boshlang'ich holatni yuklash
+  switchPlatform(activePlatform);
+
+  let history = [];
+  try {
+    const saved = localStorage.getItem('lead_history');
+    if (saved) history = JSON.parse(saved);
+  } catch(e) {}
+
+  function renderLog(){
+    if (history.length === 0){
+      logList.innerHTML = '<div class="empty">Hali hech narsa yuborilmagan</div>';
+      return;
+    }
+    logList.innerHTML = history.slice(0, 10).map(item => `
       <div class="log-item">
         <div>
           <div class="name">${escapeHtml(item.name)}</div>
-          <div class="phone">${escapeHtml(item.phone)}${item.product ? " · " + escapeHtml(item.product) : ""}</div>
+          <div class="phone">${escapeHtml(item.phone)}${item.product ? ' · ' + escapeHtml(item.product) : ''}${item.providerLabel ? ' · ' + escapeHtml(item.providerLabel) : ''}</div>
         </div>
-        <span class="status ${item.ok ? "ok" : "fail"}">${item.ok ? "Yuborildi" : "Xato"}</span>
+        <span class="status ${item.ok ? 'ok' : 'fail'}">${item.ok ? 'Yuborildi' : 'Xato'}</span>
       </div>
-    `,
-          )
-          .join("");
-      }
+    `).join('');
+  }
 
-      function escapeHtml(str) {
-        const div = document.createElement("div");
-        div.textContent = str;
-        return div.innerHTML;
-      }
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
 
-      function saveHistory() {
-        try {
-          localStorage.setItem(
-            "lead_history",
-            JSON.stringify(history.slice(0, 30)),
-          );
-        } catch (e) {}
-      }
+  function saveHistory(){
+    try {
+      localStorage.setItem('lead_history', JSON.stringify(history.slice(0,30)));
+    } catch(e) {}
+  }
 
-      renderLog();
+  renderLog();
 
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
 
-        const name = document.getElementById("name").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-        const product = PRODUCTS[productSelect.value];
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const account = getAccount();
+    const product = account.products[productSelect.value];
 
-        if (!name || !phone) {
-          showMsg("error", "Ism va telefon raqamini kiriting");
-          return;
-        }
-        if (!product) {
-          showMsg("error", "Mahsulotni tanlang");
-          return;
-        }
+    if (!name || !phone){
+      showMsg('error', 'Ism va telefon raqamini kiriting');
+      return;
+    }
+    if (!product){
+      showMsg('error', 'Mahsulotni tanlang');
+      return;
+    }
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Yuborilmoqda...";
-        msgBox.className = "msg";
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Yuborilmoqda...';
+    msgBox.className = 'msg';
 
-        try {
-          const res = await fetch(PROXY_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              api_key: API_KEY,
-              stream: product.stream,
-              offer_id: product.offer,
-              name: name,
-              phone: phone,
-            }),
-          });
-
-          const text = await res.text();
-          let data;
-          try {
-            data = JSON.parse(text);
-          } catch (e) {
-            data = { raw: text };
-          }
-
-          // Xavi.uz muvaffaqiyatda {ok:true} yoki {success:true} qaytaradi,
-          // xatoda {success:false, message:"..."} qaytaradi — HTTP status 200
-          // bo'lsa ham xato bo'lishi mumkin, shuning uchun ikkalasini ham tekshiramiz.
-          const isSuccess =
-            res.ok && data && data.success !== false && data.ok !== false;
-
-          if (isSuccess) {
-            showMsg("success", "Muvaffaqiyatli yuborildi! ✅");
-            history.unshift({
-              name,
-              phone,
-              product: product.label,
-              ok: true,
-              time: Date.now(),
-            });
-            form.reset();
-            document.getElementById("name").focus();
-          } else {
-            showMsg(
-              "error",
-              "Xatolik: " + (data.message || data.raw || res.status),
-            );
-            history.unshift({
-              name,
-              phone,
-              product: product ? product.label : "",
-              ok: false,
-              time: Date.now(),
-            });
-          }
-        } catch (err) {
-          showMsg(
-            "error",
-            "Tarmoq xatosi: " +
-              err.message +
-              ". Agar bu CORS xatosi bo'lsa, dasturchingizga murojaat qiling.",
-          );
-          history.unshift({
-            name,
-            phone,
-            product: product ? product.label : "",
-            ok: false,
-            time: Date.now(),
-          });
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Yuborish";
-          saveHistory();
-          renderLog();
-        }
+    try {
+      const res = await fetch(PROXY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: activePlatform,
+          api_key: account.api_key,
+          stream: product.stream,
+          offer_id: product.offer,
+          name: name,
+          phone: phone
+        })
       });
 
-      function showMsg(type, text) {
-        msgBox.className = "msg " + type;
-        msgBox.textContent = text;
+      const text = await res.text();
+      let data;
+      try { data = JSON.parse(text); } catch(e) { data = { raw: text }; }
+
+      // CRM muvaffaqiyatda {ok:true} yoki {success:true} qaytaradi,
+      // xatoda {success:false, message:"..."} qaytaradi — HTTP status 200
+      // bo'lsa ham xato bo'lishi mumkin, shuning uchun ikkalasini ham tekshiramiz.
+      const isSuccess = res.ok && data && data.success !== false && data.ok !== false;
+
+      const providerLabel = (PLATFORM_LABELS[activePlatform] || activePlatform) + ' (' + account.label + ')';
+
+      if (isSuccess){
+        showMsg('success', 'Muvaffaqiyatli yuborildi! ✅');
+        history.unshift({ name, phone, product: product.label, providerLabel, ok: true, time: Date.now() });
+        form.reset();
+        document.getElementById('name').focus();
+      } else {
+        showMsg('error', 'Xatolik: ' + (data.message || data.raw || res.status));
+        history.unshift({ name, phone, product: product ? product.label : '', providerLabel, ok: false, time: Date.now() });
       }
-    </script>
-  </body>
+    } catch (err) {
+      showMsg('error', 'Tarmoq xatosi: ' + err.message + '. Agar bu CORS xatosi bo\'lsa, dasturchingizga murojaat qiling.');
+      const providerLabel = (PLATFORM_LABELS[activePlatform] || activePlatform) + ' (' + account.label + ')';
+      history.unshift({ name, phone, product: product ? product.label : '', providerLabel, ok: false, time: Date.now() });
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Yuborish';
+      saveHistory();
+      renderLog();
+    }
+  });
+
+  function showMsg(type, text){
+    msgBox.className = 'msg ' + type;
+    msgBox.textContent = text;
+  }
+</script>
+</body>
 </html>
