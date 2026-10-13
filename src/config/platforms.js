@@ -127,6 +127,11 @@ export const PLATFORMS = {
             offer: 296,
           },
           {
+            label: "Tom ford",
+            stream: "Nyt5UJUD",
+            offer: 303,
+          },
+          {
             label: "Arencia",
             stream: "cjKLqreW",
             offer: 161,
