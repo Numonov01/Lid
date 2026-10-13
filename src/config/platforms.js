@@ -126,6 +126,11 @@ export const PLATFORMS = {
             stream: "6VNnldfD",
             offer: 296,
           },
+          {
+            label: "Arencia",
+            stream: "cjKLqreW",
+            offer: 161,
+          },
         ],
       },
     ],
