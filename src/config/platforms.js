@@ -116,7 +116,7 @@ export const PLATFORMS = {
           },
           { label: "Skeleton soat", stream: "UNStErBm", offer: 262 },
           { label: "Deyl Karnegi 4 ta qism", stream: "4EJKKR5y", offer: 60 },
-          { label: "Harvard Metodi 129", stream: "0C6l1rLN", offer: 285 },
+          { label: "Tamaki", stream: "CczcgnyN", offer: 292 },
           { label: "Harvard Metodi 109", stream: "lKzRzx17", offer: 289 },
           {
             label: "6talik nabor",
