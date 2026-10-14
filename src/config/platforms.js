@@ -90,6 +90,7 @@ export const PLATFORMS = {
           { label: "Innova kreatin shampun", stream: "Nxpz1egn", offer: 317 },
           { label: "Ashab", stream: "uu54VqpI", offer: 197 },
           { label: "Bakarat", stream: "EdxMZ0rG", offer: 337 },
+          { label: "Magie Noire", stream: "Hqb1hxT8", offer: 101 },
         ],
       },
     ],
