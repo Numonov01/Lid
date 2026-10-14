@@ -71,7 +71,7 @@ export const PLATFORMS = {
           { label: "Dyson Fen", stream: "Ami2Q8sM", offer: 42 },
           { label: "Sidr Kukuni 79", stream: "qvJizBEt", offer: 278 },
           {
-            label: "Tamaki Tashlashga Yordam Beruvchi Kukun",
+            label: "Tamaki Tashlashga",
             stream: "8iklqQDR",
             offer: 288,
           },
@@ -88,6 +88,7 @@ export const PLATFORMS = {
             offer: 312,
           },
           { label: "Innova kreatin shampun", stream: "Nxpz1egn", offer: 317 },
+          { label: "Ashab", stream: "uu54VqpI", offer: 197 },
         ],
       },
     ],
