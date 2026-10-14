@@ -136,6 +136,11 @@ export const PLATFORMS = {
             stream: "cjKLqreW",
             offer: 161,
           },
+          {
+            label: "blu de chanel",
+            stream: "TV3nldpG",
+            offer: 10,
+          },
         ],
       },
     ],
