@@ -145,6 +145,7 @@ export const PLATFORMS = {
           },
           { label: "Magie Noire", stream: "Hqb1hxT8", offer: 101 },
           { label: "QUR’ON", stream: "M17GbGiu", offer: 286 },
+          { label: "QURON FAZILATI", stream: "DH7KyNxO", offer: 58 },
         ],
       },
     ],
