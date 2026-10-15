@@ -19,7 +19,7 @@ function formatTime(ms) {
   );
 }
 
-function itemHtml(item, showTime) {
+function itemHtml(item, index, showTime, canRetry) {
   const details =
     escapeHtml(item.phone) +
     (item.product ? " · " + escapeHtml(item.product) : "") +
@@ -27,6 +27,10 @@ function itemHtml(item, showTime) {
   const time =
     showTime && item.time
       ? `<div class="time">${formatTime(item.time)}</div>`
+      : "";
+  const retry =
+    canRetry && !item.ok
+      ? `<button type="button" class="retry" data-index="${index}" title="Qayta yuborish" aria-label="Qayta yuborish">↻</button>`
       : "";
 
   return `
@@ -36,22 +40,48 @@ function itemHtml(item, showTime) {
         <div class="phone">${details}</div>
         ${time}
       </div>
-      <span class="status ${item.ok ? "ok" : "fail"}">${item.ok ? "Yuborildi" : "Xato"}</span>
+      <div class="log-actions">
+        ${retry}
+        <span class="status ${item.ok ? "ok" : "fail"}">${item.ok ? "Yuborildi" : "Xato"}</span>
+      </div>
     </div>`;
 }
 
 // el — ro'yxat konteyneri.
 // limit — nechta yozuv ko'rsatilsin (berilmasa hammasi).
 // moreLink — "To'liq ko'rish" havolasi; yozuvlar limitdan ko'p bo'lsagina ko'rinadi.
-export function createHistoryLog(el, { limit = Infinity, showTime = false, moreLink } = {}) {
+// onRetry(item) — xato yozuvni qayta yuboradi va true/false qaytaradi;
+// berilsa, xato yozuvlar yonida qayta yuborish tugmasi chiqadi.
+export function createHistoryLog(
+  el,
+  { limit = Infinity, showTime = false, moreLink, onRetry } = {},
+) {
   let history = loadJSON(STORAGE_KEY, []);
 
   function render() {
     el.innerHTML = history.length
-      ? history.slice(0, limit).map((item) => itemHtml(item, showTime)).join("")
+      ? history
+          .slice(0, limit)
+          .map((item, i) => itemHtml(item, i, showTime, !!onRetry))
+          .join("")
       : '<div class="empty">Hali hech narsa yuborilmagan</div>';
     if (moreLink) moreLink.hidden = history.length <= limit;
   }
+
+  el.addEventListener("click", async (e) => {
+    const btn = e.target.closest("button.retry");
+    if (!btn) return;
+    // Yuborish davomida ro'yxat o'zgarishi mumkin — indeks emas, obyektning o'zi saqlanadi
+    const item = history[btn.dataset.index];
+    btn.disabled = true;
+    btn.classList.add("spinning");
+
+    if (await onRetry(item)) {
+      item.ok = true;
+      saveJSON(STORAGE_KEY, history);
+    }
+    render();
+  });
 
   render();
 

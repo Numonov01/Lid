@@ -59,6 +59,11 @@ export const PLATFORMS = {
             stream: "R5OEeanx",
             offer: 26,
           },
+          {
+            label: "Seaverek",
+            stream: "1zXzjW9C",
+            offer: 209,
+          },
         ],
       },
       {

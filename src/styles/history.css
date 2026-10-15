@@ -80,3 +80,36 @@
   text-align: center;
   padding: 12px 0;
 }
+.log-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.retry {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.retry:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.retry:disabled {
+  cursor: wait;
+}
+.retry.spinning {
+  animation: retry-spin 0.8s linear infinite;
+}
+@keyframes retry-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

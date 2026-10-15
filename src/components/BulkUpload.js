@@ -16,7 +16,10 @@ function isPhone(value) {
 function parseRow(cells) {
   const values = cells.map((c) => String(c ?? "").trim()).filter(Boolean);
   const phone = values.find(isPhone);
-  const name = values.find((v) => v !== phone && /[a-zа-яё]/i.test(v));
+  // Ismda harf bo'lmasa (masalan "1"), ikki ustunli qatorda qolgan qiymat olinadi
+  const name =
+    values.find((v) => v !== phone && /[a-zа-яёқғҳў]/i.test(v)) ||
+    (values.length === 2 ? values.find((v) => v !== phone) : undefined);
   return phone && name ? { name, phone } : null;
 }
 
