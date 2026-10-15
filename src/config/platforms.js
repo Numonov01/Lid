@@ -16,7 +16,6 @@ export const PLATFORMS = {
         api_key: "9880811763797215",
         products: [
           { label: "Zepter Nabor 3 tasi 1 da", stream: "azTYn17b", offer: 261 },
-          { label: "PINK PASSION NABORI", stream: "SbRagE16", offer: 151 },
           {
             label: "ZERO FIT — Detox kukuni (100 gr)",
             stream: "GmTl7RGt",
@@ -24,7 +23,7 @@ export const PLATFORMS = {
           },
           { label: "Sidr Kukuni", stream: "AOZGdVDr", offer: 273 },
           {
-            label: "O'tqop (dimlanish) uchun zbor",
+            label: "O'tqop (dimlanish)",
             stream: "CIURG2cE",
             offer: 265,
           },
@@ -46,20 +45,19 @@ export const PLATFORMS = {
           },
           { label: "Feramon 1+1", stream: "pqnHOnFk", offer: 282 },
           {
-            label: "Louis Vuitton (LV) atirlari 1+1 45ml (4)",
+            label: "Louis Vuitton 1+1 45ml (4)",
             stream: "aWnLHTAm",
             offer: 198,
           },
           {
-            label: "Tamaki Tashlashga Yordam Beruvchi Kukun",
+            label: "Tamaki Tashlashga",
             stream: "I0Ljgx7P",
             offer: 288,
           },
-          { label: "Katushka Aparat", stream: "rphyb19o", offer: 302 },
           {
-            label: "SCORPION BAUME DE NERFS — 100 GR",
-            stream: "3ASBfwIF",
-            offer: 295,
+            label: "Carholder",
+            stream: "R5OEeanx",
+            offer: 26,
           },
         ],
       },
