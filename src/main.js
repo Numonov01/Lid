@@ -11,6 +11,7 @@ import {
 import { createMessage } from "./components/Message.js";
 import { createHistoryLog } from "./components/HistoryLog.js";
 import { setupLeadForm } from "./components/LeadForm.js";
+import { setupBulkUpload } from "./components/BulkUpload.js";
 
 const $ = (id) => document.getElementById(id);
 
@@ -68,51 +69,54 @@ productSelect.addEventListener("change", () => {
   updateProductTag();
 });
 
-setupLeadForm($("leadForm"), {
-  onError: (text) => message.show("error", text),
-  onSubmit: async ({ name, phone }) => {
-    const account = state.getAccount();
-    const product = getSelectedProduct();
-    if (!product) {
-      message.show("error", "Mahsulotni tanlang");
-      return false;
-    }
+// Bitta lidni tanlangan mahsulotga yuboradi, natijani xabar va tarixga yozadi
+async function submitLead({ name, phone }) {
+  const account = state.getAccount();
+  const product = getSelectedProduct();
+  if (!product) {
+    message.show("error", "Mahsulotni tanlang");
+    return false;
+  }
 
-    message.hide();
-    const entry = {
+  message.hide();
+  const entry = {
+    name,
+    phone,
+    product: product.label,
+    providerLabel: state.getProviderLabel(),
+  };
+
+  try {
+    const { ok, data, status } = await sendLead({
+      provider: state.getPlatform(),
+      account,
+      product,
       name,
       phone,
-      product: product.label,
-      providerLabel: state.getProviderLabel(),
-    };
+    });
 
-    try {
-      const { ok, data, status } = await sendLead({
-        provider: state.getPlatform(),
-        account,
-        product,
-        name,
-        phone,
-      });
-
-      if (ok) {
-        message.show("success", "Muvaffaqiyatli yuborildi! ✅");
-      } else {
-        message.show("error", "Xatolik: " + (data.message || data.raw || status));
-      }
-      historyLog.add({ ...entry, ok });
-      return ok;
-    } catch (err) {
-      message.show(
-        "error",
-        "Tarmoq xatosi: " +
-          err.message +
-          ". Agar bu CORS xatosi bo'lsa, dasturchingizga murojaat qiling.",
-      );
-      historyLog.add({ ...entry, ok: false });
-      return false;
+    if (ok) {
+      message.show("success", "Muvaffaqiyatli yuborildi! ✅");
+    } else {
+      message.show("error", "Xatolik: " + (data.message || data.error || data.raw || status));
     }
-  },
-});
+    historyLog.add({ ...entry, ok });
+    return ok;
+  } catch (err) {
+    message.show(
+      "error",
+      "Tarmoq xatosi: " +
+        err.message +
+        ". Agar bu CORS xatosi bo'lsa, dasturchingizga murojaat qiling.",
+    );
+    historyLog.add({ ...entry, ok: false });
+    return false;
+  }
+}
+
+const showError = (text) => message.show("error", text);
+
+setupLeadForm($("leadForm"), { onError: showError, onSubmit: submitLead });
+setupBulkUpload($("bulkUpload"), { onError: showError, sendOne: submitLead });
 
 render();

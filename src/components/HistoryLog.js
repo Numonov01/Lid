@@ -2,7 +2,7 @@
 import { loadJSON, saveJSON } from "../lib/storage.js";
 
 const STORAGE_KEY = "lead_history";
-const MAX_STORED = 100;
+const MAX_STORED = 50;
 
 function escapeHtml(str) {
   const div = document.createElement("div");

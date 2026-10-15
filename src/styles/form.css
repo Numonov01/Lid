@@ -66,3 +66,47 @@ button[type="submit"]:disabled {
   background: rgba(220, 38, 38, 0.1);
   color: var(--error);
 }
+
+/* Fayldan ommaviy yuborish */
+.bulk {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.bulk-hint {
+  margin: -2px 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.bulk input[type="file"] {
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.bulk-info {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.bulk-info:empty {
+  display: none;
+}
+#bulkSend {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+#bulkSend:hover {
+  background: rgba(37, 99, 235, 0.08);
+}
+#bulkSend:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

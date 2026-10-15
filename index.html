@@ -48,6 +48,16 @@
           <button type="submit" id="submitBtn">Yuborish</button>
         </form>
 
+        <div class="bulk" id="bulkUpload">
+          <label for="bulkFile">Fayldan yuborish</label>
+          <p class="bulk-hint">
+            CSV, TXT yoki Excel — har qatorda ism va telefon raqami
+          </p>
+          <input type="file" id="bulkFile" accept=".csv,.txt,.xlsx,.xls" />
+          <div class="bulk-info" id="bulkInfo"></div>
+          <button type="button" id="bulkSend" hidden>Hammasini yuborish</button>
+        </div>
+
         <div class="msg" id="msgBox"></div>
 
         <div class="log">
