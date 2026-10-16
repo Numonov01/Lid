@@ -110,7 +110,6 @@ export const PLATFORMS = {
             offer: 278,
           },
           { label: "Feramon 21+ (30ML)", stream: "FJ0lBOwk", offer: 195 },
-          { label: "Ozdiruvchi choy", stream: "oFQHr6By", offer: 255 },
           { label: "Guruch Nabor", stream: "3V4cqpBv", offer: 105 },
           {
             label: "Hujjat va kitoblar uchun papka",
@@ -119,7 +118,6 @@ export const PLATFORMS = {
           },
           { label: "Skeleton soat", stream: "UNStErBm", offer: 262 },
           { label: "Deyl Karnegi 4 ta qism", stream: "4EJKKR5y", offer: 60 },
-          { label: "Tamaki", stream: "CczcgnyN", offer: 292 },
           { label: "Harvard Metodi 109", stream: "lKzRzx17", offer: 289 },
           {
             label: "6talik nabor",
@@ -147,6 +145,7 @@ export const PLATFORMS = {
             stream: "TV3nldpG",
             offer: 10,
           },
+          { label: "POLISHING CLEANER ", stream: "VEQ1karJ", offer: 254 },
           { label: "Magie Noire", stream: "Hqb1hxT8", offer: 101 },
           { label: "QUR’ON", stream: "M17GbGiu", offer: 286 },
           { label: "QURON FAZILATI", stream: "DH7KyNxO", offer: 58 },

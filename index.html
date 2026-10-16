@@ -49,11 +49,17 @@
         </form>
 
         <div class="bulk" id="bulkUpload">
-          <label for="bulkFile">Fayldan yuborish</label>
+          <label for="bulkFile">Ro'yxatdan yuborish</label>
           <p class="bulk-hint">
-            CSV, TXT yoki Excel — har qatorda ism va telefon raqami
+            CSV, TXT yoki Excel fayl — yoki CRM'dagi ro'yxatni pastga joylashtiring.
+            Takrorlar va raqamdagi xatolar avtomatik tozalanadi.
           </p>
           <input type="file" id="bulkFile" accept=".csv,.txt,.xlsx,.xls" />
+          <textarea
+            id="bulkPaste"
+            rows="3"
+            placeholder="CRM ro'yxatini shu yerga joylashtiring (Ctrl+V)"
+          ></textarea>
           <div class="bulk-info" id="bulkInfo"></div>
           <button type="button" id="bulkSend" hidden>Hammasini yuborish</button>
         </div>

@@ -110,3 +110,27 @@ button[type="submit"]:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
+.bulk textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  resize: vertical;
+  margin-bottom: 8px;
+  outline: none;
+}
+.bulk textarea:focus {
+  border-color: var(--accent);
+}
+.bulk-invalid {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  max-height: 120px;
+  overflow-y: auto;
+  color: var(--error);
+  font-size: 13px;
+}

@@ -1,30 +1,15 @@
-// Fayldan ommaviy lid yuborish: CSV / TXT / Excel faylni o'qiydi,
-// har bir qatordan ism va telefonni topadi va ketma-ket yuboradi.
+// Ommaviy lid yuborish: CSV / TXT / Excel fayl yoki CRM'dan nusxalangan
+// ro'yxatni o'qiydi, lidlarni ajratadi va ketma-ket yuboradi.
 // sendOne({name, phone}) — bitta lidni yuboradi va true/false qaytaradi.
+import { parseLeads, textToRows } from "../lib/leadParser.js";
 
 // Excel kutubxonasi faqat .xlsx/.xls tanlanganda yuklanadi
 const XLSX_URL = "https://cdn.sheetjs.com/xlsx-0.20.3/package/xlsx.mjs";
 
-// Raqamlari soni 9–13 bo'lgan va harf qatnashmagan qiymat — telefon
-function isPhone(value) {
-  if (/[a-zа-яё]/i.test(value)) return false;
-  const digits = value.replace(/\D/g, "");
-  return digits.length >= 9 && digits.length <= 13;
-}
-
-// Qatordan {name, phone} ni ajratadi; topilmasa null
-function parseRow(cells) {
-  const values = cells.map((c) => String(c ?? "").trim()).filter(Boolean);
-  const phone = values.find(isPhone);
-  // Ismda harf bo'lmasa (masalan "1"), ikki ustunli qatorda qolgan qiymat olinadi
-  const name =
-    values.find((v) => v !== phone && /[a-zа-яёқғҳў]/i.test(v)) ||
-    (values.length === 2 ? values.find((v) => v !== phone) : undefined);
-  return phone && name ? { name, phone } : null;
-}
-
-function splitLine(line) {
-  return line.split(/[,;\t]/);
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
 }
 
 async function readRows(file) {
@@ -34,52 +19,59 @@ async function readRows(file) {
     const sheet = wb.Sheets[wb.SheetNames[0]];
     return XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false });
   }
-  const text = await file.text();
-  return text.split(/\r?\n/).map(splitLine);
+  return textToRows(await file.text());
 }
 
 export function setupBulkUpload(root, { sendOne, onError }) {
   const fileInput = root.querySelector("#bulkFile");
+  const pasteInput = root.querySelector("#bulkPaste");
   const info = root.querySelector("#bulkInfo");
   const sendBtn = root.querySelector("#bulkSend");
 
   let leads = [];
 
-  function reset() {
-    leads = [];
-    sendBtn.hidden = true;
-    info.textContent = "";
+  function showParsed({ leads: parsed, invalid, duplicates }) {
+    leads = parsed;
+    sendBtn.hidden = !leads.length;
+    sendBtn.textContent = "Hammasini yuborish (" + leads.length + ")";
+
+    let html = "<b>" + leads.length + " ta lid tayyor</b>";
+    if (duplicates) html += " · " + duplicates + " ta takror olib tashlandi";
+    if (invalid.length) {
+      html +=
+        " · " + invalid.length + " ta yaroqsiz raqam:" +
+        '<ul class="bulk-invalid">' +
+        invalid
+          .map((x) => "<li>" + escapeHtml(x.name) + " — " + escapeHtml(x.rawPhone) + "</li>")
+          .join("") +
+        "</ul>";
+    }
+    info.innerHTML = leads.length || invalid.length ? html : "";
   }
 
   fileInput.addEventListener("change", async () => {
-    reset();
     const file = fileInput.files[0];
     if (!file) return;
-
+    pasteInput.value = "";
     try {
-      const rows = await readRows(file);
-      const nonEmpty = rows.filter((r) => r.some((c) => String(c ?? "").trim()));
-      leads = nonEmpty.map(parseRow).filter(Boolean);
-      const skipped = nonEmpty.length - leads.length;
-
-      if (!leads.length) {
+      const result = parseLeads(await readRows(file));
+      if (!result.leads.length && !result.invalid.length) {
         onError("Faylda ism va telefon topilmadi");
-        return;
       }
-      info.textContent =
-        leads.length + " ta lid topildi" +
-        (skipped ? " (" + skipped + " ta qator o'tkazib yuborildi)" : "");
-      sendBtn.hidden = false;
-      sendBtn.textContent = "Hammasini yuborish (" + leads.length + ")";
+      showParsed(result);
     } catch (err) {
       onError("Faylni o'qib bo'lmadi: " + err.message);
     }
   });
 
+  pasteInput.addEventListener("input", () => {
+    fileInput.value = "";
+    showParsed(parseLeads(textToRows(pasteInput.value)));
+  });
+
   sendBtn.addEventListener("click", async () => {
     if (!leads.length) return;
-    sendBtn.disabled = true;
-    fileInput.disabled = true;
+    sendBtn.disabled = fileInput.disabled = pasteInput.disabled = true;
 
     let okCount = 0;
     let failCount = 0;
@@ -92,10 +84,10 @@ export function setupBulkUpload(root, { sendOne, onError }) {
 
     info.textContent =
       "Tugadi: " + okCount + " ta yuborildi" +
-      (failCount ? ", " + failCount + " ta xato" : "");
-    sendBtn.disabled = false;
-    fileInput.disabled = false;
+      (failCount ? ", " + failCount + " ta xato (tarixdan ↻ bilan qayta yuboring)" : "");
+    sendBtn.disabled = fileInput.disabled = pasteInput.disabled = false;
     fileInput.value = "";
+    pasteInput.value = "";
     leads = [];
     sendBtn.hidden = true;
   });
