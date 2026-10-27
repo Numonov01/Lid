@@ -151,6 +151,7 @@ export const PLATFORMS = {
           { label: "QURON FAZILATI", stream: "DH7KyNxO", offer: 58 },
           { label: "Lamsa ", stream: "I9vuBx8B", offer: 307 },
           { label: "AirPods Pro 2 ", stream: "mSe4xVbu", offer: 30 },
+          { label: "Sidr Shampun", stream: "m8jCkDEp", offer: 310 },
         ],
       },
     ],
