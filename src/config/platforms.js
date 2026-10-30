@@ -152,6 +152,7 @@ export const PLATFORMS = {
           { label: "Lamsa ", stream: "I9vuBx8B", offer: 307 },
           { label: "AirPods Pro 2 ", stream: "mSe4xVbu", offer: 30 },
           { label: "Sidr Shampun", stream: "m8jCkDEp", offer: 310 },
+          { label: "Qashqirlar ", stream: "x6Mqg4U6", offer: 314 },
         ],
       },
     ],
