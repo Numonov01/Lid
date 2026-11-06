@@ -154,6 +154,7 @@ export const PLATFORMS = {
           { label: "Choy", stream: "oFQHr6By", offer: 255 },
           { label: "Qashqirlar", stream: "x6Mqg4U6", offer: 314 },
           { label: "Xirsigiyoh", stream: "NTuzmLO1", offer: 318 },
+          { label: "Quvvat Asal", stream: "czKc7T9W", offer: 70 },
         ],
       },
     ],
