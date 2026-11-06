@@ -64,6 +64,7 @@ export const PLATFORMS = {
             stream: "1zXzjW9C",
             offer: 209,
           },
+          { label: "Quvvat Asal", stream: "I6uGjaiO", offer: 133 },
         ],
       },
       {
