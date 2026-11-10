@@ -24,6 +24,8 @@ function cleanName(raw) {
   const name = String(raw ?? "")
     .normalize("NFKC")
     .replace(/[̀-ͯ]/g, "")
+    .trim()
+    .replace(/^["'“”«»]+|["'“”«»]+$/g, "")
     .trim();
   return name && name !== CRM_EMPTY ? name : "Mijoz";
 }
@@ -85,10 +87,40 @@ export function parseLeads(rows) {
   return { leads, invalid, duplicates };
 }
 
+// CSV qatorini katakchalarga ajratadi: "..." ichidagi vergul bo'lmaydi,
+// qo'shtirnoqlar olib tashlanadi ("" — bitta " belgisi)
+function splitCsvLine(line) {
+  const cells = [];
+  let cell = "";
+  let quoted = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (quoted) {
+      if (ch === '"' && line[i + 1] === '"') {
+        cell += '"';
+        i++;
+      } else if (ch === '"') {
+        quoted = false;
+      } else {
+        cell += ch;
+      }
+    } else if (ch === '"') {
+      quoted = true;
+    } else if (ch === "," || ch === ";") {
+      cells.push(cell);
+      cell = "";
+    } else {
+      cell += ch;
+    }
+  }
+  cells.push(cell);
+  return cells;
+}
+
 // Matnni qatorlarga ajratadi: CRM'dan nusxa — tab, CSV — vergul yoki nuqtali vergul
 export function textToRows(text) {
   return text
     .split(/\r?\n/)
     .filter((line) => line.trim())
-    .map((line) => line.split(line.includes("\t") ? "\t" : /[,;]/));
+    .map((line) => (line.includes("\t") ? line.split("\t") : splitCsvLine(line)));
 }
