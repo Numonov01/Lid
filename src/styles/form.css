@@ -92,8 +92,12 @@ button[type="submit"]:disabled {
 .bulk-info:empty {
   display: none;
 }
-#bulkSend {
-  width: 100%;
+.bulk-actions {
+  display: flex;
+  gap: 8px;
+}
+.bulk-actions button {
+  flex: 1;
   padding: 12px;
   border: 1px solid var(--accent);
   border-radius: 10px;
@@ -103,12 +107,22 @@ button[type="submit"]:disabled {
   font-weight: 600;
   cursor: pointer;
 }
-#bulkSend:hover {
+.bulk-actions button[hidden] {
+  display: none;
+}
+.bulk-actions button:hover {
   background: rgba(37, 99, 235, 0.08);
 }
-#bulkSend:disabled {
+.bulk-actions button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+#bulkCancel {
+  border-color: var(--error);
+  color: var(--error);
+}
+#bulkCancel:hover {
+  background: rgba(220, 38, 38, 0.08);
 }
 .bulk textarea {
   width: 100%;
