@@ -156,6 +156,7 @@ export const PLATFORMS = {
           { label: "Qashqirlar", stream: "x6Mqg4U6", offer: 314 },
           { label: "Xirsigiyoh", stream: "NTuzmLO1", offer: 318 },
           { label: "Quvvat Asal", stream: "czKc7T9W", offer: 70 },
+          { label: "OYOQ YOQIMSIZ HIDDAN", stream: "W8Axi7IH", offer: 325 },
         ],
       },
     ],
