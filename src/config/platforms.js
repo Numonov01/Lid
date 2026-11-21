@@ -182,7 +182,7 @@ export const PLATFORMS = {
         products: [
           // Mahsulotlarni shu ko'rinishda qo'shing:
           // offer — oqim raqami emas (Oqim #301017), offer ID (getOffers'dagi)
-          { label: "Blu", stream: "RwtX1", offer: 1136 },
+          { label: "Blu shanel", stream: "RwtX1", offer: 1136 },
         ],
       },
     ],
