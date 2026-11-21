@@ -181,7 +181,7 @@ export const PLATFORMS = {
         api_key: "32704:39dccdb1be9f5996073438649b474bd8",
         products: [
           // Mahsulotlarni shu ko'rinishda qo'shing:
-          // { label: "Mahsulot nomi", stream: "OQIM_KODI", offer: 123 },
+          { label: "Blu", stream: "RwtX1", offer: 301017 },
         ],
       },
     ],
