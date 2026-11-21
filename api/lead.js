@@ -35,6 +35,10 @@ export default async function handler(req, res) {
       });
     }
 
+    if (provider === "sotuvchi") {
+      return sendSotuvchi(res, { name, phone, api_key, stream, offer_id });
+    }
+
     const targetUrl = PROVIDERS[provider] || PROVIDERS.xavi;
 
     const params = new URLSearchParams();
@@ -63,4 +67,56 @@ export default async function handler(req, res) {
     console.error("Proxy error:", err);
     return res.status(500).json({ error: "Server xatosi: " + err.message });
   }
+}
+
+// Sotuvchi.com — API v2 (sotuvchi-api-guide.md, 4-bo'lim).
+// Buyurtma boshqa domenda: sotuvchi.com/api (apiv3 emas). Kalit faqat
+// "Authorization: Bearer" sarlavhasida — URL'da server logida qolmasligi uchun.
+// Telefon "998901234567" ko'rinishida (+ belgisiz). Muvaffaqiyat: 201 {ok, id}.
+const SOTUVCHI_ORDER_URL = "https://sotuvchi.com/api/v2/order";
+
+async function sendSotuvchi(res, { name, phone, api_key, stream, offer_id }) {
+  const crmResponse = await fetch(SOTUVCHI_ORDER_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + api_key,
+    },
+    body: JSON.stringify({
+      offer_id,
+      stream,
+      name,
+      phone: String(phone).replace(/\D/g, ""),
+    }),
+  });
+
+  const text = await crmResponse.text();
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    data = { raw: text };
+  }
+
+  // 409 duplicate_order — shu raqam shu offerga allaqachon qabul qilingan.
+  // Hujjat tavsiyasi: xato emas, qayta yubormang — shuning uchun muvaffaqiyat
+  // deb qaytaramiz (aks holda tarixda "qayta yuborish" tugmasi chiqib qoladi).
+  if (crmResponse.status === 409 && data && data.code === "duplicate_order") {
+    return res.status(200).json({ ...data, ok: true, duplicate: true });
+  }
+
+  // Xato: {ok:false, code, message, errors?}. validation_failed'da qaysi maydon
+  // xatoligini ham xabarga qo'shamiz, kodni esa boshiga — forma shuni ko'rsatadi.
+  if (!crmResponse.ok && data && data.code) {
+    const details = data.errors
+      ? " — " +
+        Object.entries(data.errors)
+          .map(([field, msg]) => field + ": " + [].concat(msg).join(", "))
+          .join("; ")
+      : "";
+    data.message = data.code + (data.message ? " (" + data.message + ")" : "") + details;
+  }
+
+  return res.status(crmResponse.status).json(data);
 }

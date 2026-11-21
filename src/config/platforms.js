@@ -5,7 +5,11 @@
 
 export const DEFAULT_PLATFORM = "xavi";
 
-export const PLATFORM_LABELS = { fayzli: "Fayzlibazar", xavi: "Xavi.uz" };
+export const PLATFORM_LABELS = {
+  fayzli: "Fayzlibazar",
+  xavi: "Xavi.uz",
+  sotuvchi: "Sotuvchi",
+};
 
 export const PLATFORMS = {
   fayzli: {
@@ -163,6 +167,21 @@ export const PLATFORMS = {
             stream: "17YbSisH",
             offer: 26,
           },
+        ],
+      },
+    ],
+  },
+  sotuvchi: {
+    accounts: [
+      {
+        id: "tokhir",
+        label: "Tokhir",
+        // Sotuvchi kabinet → Sozlamalar → API → "Shaxsiy API kalit".
+        // Parol o'zgarsa kalit ham o'zgaradi — shu yerda yangilang.
+        api_key: "32704:39dccdb1be9f5996073438649b474bd8",
+        products: [
+          // Mahsulotlarni shu ko'rinishda qo'shing:
+          // { label: "Mahsulot nomi", stream: "OQIM_KODI", offer: 123 },
         ],
       },
     ],
