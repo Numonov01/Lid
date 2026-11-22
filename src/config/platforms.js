@@ -69,6 +69,9 @@ export const PLATFORMS = {
             offer: 209,
           },
           { label: "Quvvat Asal", stream: "I6uGjaiO", offer: 133 },
+          { label: "13 atir", stream: "5j3ABWTA", offer: 326 },
+          { label: "Bioaqua guruch nabor", stream: "Ji1owN1U", offer: 103 },
+          { label: "Harvard", stream: "waXeS7Kw", offer: 328 },
         ],
       },
       {
@@ -184,9 +187,6 @@ export const PLATFORMS = {
           // offer — oqim raqami emas (Oqim #301017), offer ID (getOffers'dagi)
           { label: "Blu shanel", stream: "RwtX1", offer: 1136 },
           { label: "Deyl karnegi", stream: "HZ7Y4", offer: 2349 },
-          { label: "13 atir", stream: "5j3ABWTA", offer: 326 },
-          { label: "Bioaqua guruch nabor", stream: "Ji1owN1U", offer: 103 },
-          { label: "Harvard", stream: "waXeS7Kw", offer: 328 },
         ],
       },
     ],
