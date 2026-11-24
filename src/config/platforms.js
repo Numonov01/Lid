@@ -187,7 +187,7 @@ export const PLATFORMS = {
           // offer — oqim raqami emas (Oqim #301017), offer ID (getOffers'dagi)
           { label: "Blu shanel", stream: "RwtX1", offer: 1136 },
           { label: "Deyl karnegi", stream: "HZ7Y4", offer: 2349 },
-          { label: "Deyl karnegi", stream: "5NBPd", offer: 4322 },
+          { label: "bulgari", stream: "5NBPd", offer: 4322 },
         ],
       },
     ],
